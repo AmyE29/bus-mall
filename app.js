@@ -1,11 +1,11 @@
 'use strict';
 
+
 var leftImageEl = document.getElementById('left');
 var rightImageEl = document.getElementById('right');
 var centerImageEl = document.getElementById('center');
 var containerEl = document.getElementById('image_container');
 var totalClicks = 0;
-var maxClicks =25;
 var allProducts = [];
 
 function Product(name) {
@@ -86,19 +86,40 @@ new Product('wine-glass');
 
 function handleClick() {
   totalClicks++;
-  if(totalClicks === 5){
+  if(totalClicks === 25){
     containerEl.removeEventListener('click', handleClick);
     containerEl.setAttribute('hidden', true);
   }
-    var chosenImage = event.target.title;
-    console.log('chosenImage: ', chosenImage);
-    for( var i = 0; i < allProducts.length; i++ ) {
-      if(allProducts[i].name === chosenImage) {
-        allProducts[i].votes++;
-      
+  var chosenImage = event.target.title;
+  console.log('chosenImage: ', chosenImage);
+  for( var i = 0; i < allProducts.length; i++ ) {
+    if(allProducts[i].name === chosenImage) {
+      allProducts[i].votes++;
     }
   }
   renderProducts();
+  parentEl.innerHTML = '';
+render();
 }
+
 containerEl.addEventListener('click', handleClick);
 renderProducts();
+
+
+console.log(allProducts);
+
+var parentEl = document.getElementById('parentElement');
+var child = document.createElement('h1');
+child.textContent = 'storeData: ';
+parentEl.appendChild(child);
+
+function render() {
+  for( var i = 0; i < allProducts.length; i++ ) {
+    var childEl = document.createElement('li');
+    childEl.textContent = `Image: ${allProducts[i].name}     Views: ${allProducts[i].views}     Votes: ${allProducts[i].votes}`;
+    parentEl.appendChild(childEl);
+  }
+}
+
+render();
+

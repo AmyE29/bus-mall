@@ -15,5 +15,8 @@ h1{
     height: 250px;
     box-shadow: 4px 4px;
     padding: 10px;
+}
 
+h2{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
