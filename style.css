@@ -2,9 +2,18 @@ body{
     width: 960px;
     margin: 0 auto;
 }
+h1{
+    font-family: 'Dr Sugiyama', cursive;
+    font-size: 50pt;
+    color: goldenrod;
+    text-shadow: black 2px 2px;
+}
 .image{
     display: inline-block;
+    align-items: center;
     width: 250px;
     height: 250px;
-    box-shadow: 3px 3px;
+    box-shadow: 4px 4px;
+    padding: 10px;
+
 }

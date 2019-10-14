@@ -4,7 +4,8 @@ var leftImageEl = document.getElementById('left');
 var rightImageEl = document.getElementById('right');
 var centerImageEl = document.getElementById('center');
 var containerEl = document.getElementById('image_container');
-
+var totalClicks = 0;
+var maxClicks =25;
 var allProducts = [];
 
 function Product(name) {
@@ -82,17 +83,22 @@ new Product('water-can');
 new Product('wine-glass');
 
 
+
 function handleClick() {
-  var chosenImage = event.target.title;
-  console.log('chosenImage: ', chosenImage);
-  for( var i = 0; i < allProducts.length; i++ ) {
-    if(allProducts[i].name === chosenImage) {
-      allProducts[i].votes++;
+  totalClicks++;
+  if(totalClicks === 5){
+    containerEl.removeEventListener('click', handleClick);
+    containerEl.setAttribute('hidden', true);
+  }
+    var chosenImage = event.target.title;
+    console.log('chosenImage: ', chosenImage);
+    for( var i = 0; i < allProducts.length; i++ ) {
+      if(allProducts[i].name === chosenImage) {
+        allProducts[i].votes++;
+      
     }
   }
   renderProducts();
 }
-
 containerEl.addEventListener('click', handleClick);
 renderProducts();
-
