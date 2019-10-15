@@ -1,12 +1,23 @@
 body{
     width: 960px;
     margin: 0 auto;
+
+}
+body p {
+    text-align: left;
+}
+
+#tagline {
+    text-align: center;
+    font-family: 'Kaushan Script', cursive;
+    font-size: 30pt;
 }
 h1{
     font-family: 'Dr Sugiyama', cursive;
     font-size: 50pt;
+    font-stretch: expanded;
     color: goldenrod;
-    text-shadow: black 2px 2px;
+    text-shadow: darkgrey 2px 2px;
 }
 .image{
     display: inline-block;
@@ -17,6 +28,14 @@ h1{
     padding: 10px;
 }
 
-h2{
+h2 {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
+
+h3{
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: red;
+    font-size: 24pt;
+    list-style: none;
+}
+

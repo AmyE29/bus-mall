@@ -99,7 +99,7 @@ function handleClick() {
   }
   renderProducts();
   parentEl.innerHTML = '';
-render();
+  render();
 }
 
 containerEl.addEventListener('click', handleClick);
@@ -109,8 +109,8 @@ renderProducts();
 console.log(allProducts);
 
 var parentEl = document.getElementById('parentElement');
-var child = document.createElement('h1');
-child.textContent = 'storeData: ';
+var child = document.createElement('h3');
+child.textContent = 'Store Data: ';
 parentEl.appendChild(child);
 
 function render() {
