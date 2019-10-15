@@ -11,6 +11,8 @@ body p {
     text-align: center;
     font-family: 'Kaushan Script', cursive;
     font-size: 30pt;
+    background-image: url(/images/background.jpg);
+    padding: 20px;
 }
 h1{
     font-family: 'Dr Sugiyama', cursive;
