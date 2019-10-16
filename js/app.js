@@ -1,3 +1,4 @@
+
 'use strict';
 
 
@@ -5,8 +6,14 @@ var leftImageEl = document.getElementById('left');
 var rightImageEl = document.getElementById('right');
 var centerImageEl = document.getElementById('center');
 var containerEl = document.getElementById('image_container');
-var totalClicks = 0;
+
+Product.pics = [document.getElementById('left'),document.getElementById('right'), document.getElementById('center')];
+
+Product.totalClicks = 0;
 var allProducts = [];
+
+Product.uniqueArray = [];
+
 
 function Product(name) {
   this.name = name;
@@ -20,7 +27,44 @@ function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
 }
 
-function renderProducts() {
+function uniqueArrayGen(){
+  while(allProducts.uniqueArray.length < 6){
+    var random = makeRandom();
+    while(!allProducts.uniqueArray.includes(random)){
+      allProducts.uniqueArray.push(random);
+    }
+  }
+}
+function displayPics() {
+  uniqueArrayGen();
+  for (var i = 0; i < allProducts.uniqueArray.legnth; i++){
+    var temp = allProducts.uniqueArray.shift();
+    console.log ('temp: ', temp);
+    allProducts.pics[i].src = allProducts[temp].path;
+    allProducts.pics[i].id = allProducts[temp].name;
+    allProducts[temp].views += 1;
+  }
+}
+function handleClick(event) {
+  var chosenImage = event.target.title;
+  console.log('chosenImage: ', chosenImage);
+  if(Product.totalClicks === 25){
+    containerEl.removeEventListener('click', handleClick);
+    containerEl.setAttribute('hidden', true);
+    makeChart();
+  }
+
+  for( var i = 0; i < allProducts.length; i++ ) {
+    if(allProducts[i].name === chosenImage) {
+      allProducts[i].votes++;
+    }
+  }
+  Product.totalClicks++;
+  renderProducts();
+  // parentEl.innerHTML = '';
+}
+
+function renderProducts (){
   //create an array to hold unique indexes
   var uniquePicsArray = [];
   //assign values to index 0 and 1
@@ -82,44 +126,61 @@ new Product('usb');
 new Product('water-can');
 new Product('wine-glass');
 
+console.log(allProducts);
 
+var nameData = [];
+console.log('name: ', nameData);
+var voteData = [];
+console.log('vote: ', voteData);
+var viewsData = [];
 
-function handleClick() {
-  totalClicks++;
-  if(totalClicks === 25){
-    containerEl.removeEventListener('click', handleClick);
-    containerEl.setAttribute('hidden', true);
+var getChartData = function () {
+  for (var i = 0; i < allProducts.length; i++) {
+    nameData.push(allProducts[i].name);
+    voteData.push(allProducts[i].votes);
   }
-  var chosenImage = event.target.title;
-  console.log('chosenImage: ', chosenImage);
-  for( var i = 0; i < allProducts.length; i++ ) {
-    if(allProducts[i].name === chosenImage) {
-      allProducts[i].votes++;
+};
+
+var makeChart = function () {
+  getChartData();
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: nameData,
+      datasets: [{
+        label: 'Votes',
+        data: voteData,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
     }
-  }
-  renderProducts();
-  parentEl.innerHTML = '';
-  render();
-}
+  });
+};
 
 containerEl.addEventListener('click', handleClick);
 renderProducts();
-
-
-console.log(allProducts);
-
-var parentEl = document.getElementById('parentElement');
-var child = document.createElement('h3');
-child.textContent = 'Store Data: ';
-parentEl.appendChild(child);
-
-function render() {
-  for( var i = 0; i < allProducts.length; i++ ) {
-    var childEl = document.createElement('li');
-    childEl.textContent = `Image: ${allProducts[i].name}     Views: ${allProducts[i].views}     Votes: ${allProducts[i].votes}`;
-    parentEl.appendChild(childEl);
-  }
-}
-
-render();
-
