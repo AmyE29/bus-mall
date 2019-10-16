@@ -7,19 +7,22 @@ body p {
     text-align: left;
 }
 
+
 #tagline {
     text-align: center;
     font-family: 'Kaushan Script', cursive;
     font-size: 30pt;
     background-image: url(/images/background.jpg);
     padding: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 h1{
     font-family: 'Dr Sugiyama', cursive;
-    font-size: 50pt;
+    font-size: 60pt;
     font-stretch: expanded;
-    color: goldenrod;
-    text-shadow: darkgrey 2px 2px;
+    color: rgb(255, 196, 33);
+    text-shadow: darkgrey 1px 1px;
 }
 .image{
     display: inline-block;
@@ -28,6 +31,9 @@ h1{
     height: 250px;
     box-shadow: 4px 4px;
     padding: 10px;
+}
+#image-container{
+    width: 100%;
 }
 
 h2 {
