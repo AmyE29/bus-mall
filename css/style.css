@@ -1,10 +1,14 @@
 body{
     width: 960px;
     margin: 0 auto;
+    background-color:rgba(222,193,213,0.5);
 
 }
 body p {
-    text-align: left;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 16pt;
+    padding: 20px;
+
 }
 
 
@@ -13,37 +17,69 @@ body p {
     font-family: 'Kaushan Script', cursive;
     font-size: 30pt;
     background-image: url(/images/background.jpg);
-    padding: 20px;
+    border-radius: 40px;
+    padding: 10px;
     margin-top: 20px;
-    margin-bottom: 20px;
+    color: black;
 }
 h1{
     font-family: 'Dr Sugiyama', cursive;
     font-size: 60pt;
     font-stretch: expanded;
     color: rgb(255, 196, 33);
-    text-shadow: darkgrey 1px 1px;
+    text-shadow: black 2px 2px;
+    margin-top: 30px;
 }
 .image{
     display: inline-block;
-    align-items: center;
+    align-items: right;
     width: 250px;
     height: 250px;
-    box-shadow: 4px 4px;
+    box-shadow: 4px 4px 8px purple ;
     padding: 10px;
+    margin-left: 30px;
 }
-#image-container{
-    width: 100%;
+#left{
+    transition: all .2s ease-in-out; }
+  
+#left:hover{
+    animation: pulse 1s infinite;
+    animation-timing-function: linear;   
+  }
+#right{
+    transition: all .2s ease-in-out; }
+  
+#right:hover{
+    animation: pulse 1s infinite;
+    animation-timing-function: linear;   
+  }
+#center{
+    transition: all .2s ease-in-out; }
+  
+#center:hover{
+    animation: pulse 1s infinite;
+    animation-timing-function: linear;   
+  }
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1);}
+    100% { transform: scale(1); }
+}
+#image_container{
+    margin-top: 20px; 
+    display: flex;  
 }
 
 h2 {
+    margin-top: 20px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-align: center;
 }
 
-h3{
+/* h3{
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     color: red;
     font-size: 24pt;
     list-style: none;
-}
+} */
 
