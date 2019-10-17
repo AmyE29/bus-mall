@@ -1,18 +1,18 @@
 
 'use strict';
 
+var allProducts = [];
+var uniquePicsArray = [];
 
+//global variables
 var leftImageEl = document.getElementById('left');
 var rightImageEl = document.getElementById('right');
 var centerImageEl = document.getElementById('center');
 var containerEl = document.getElementById('image_container');
 
-Product.pics = [document.getElementById('left'),document.getElementById('right'), document.getElementById('center')];
+Product.pics =[ document.getElementById('left'), document.getElementById('center'), document.getElementById('right')];
+var totalClicks = 0;
 
-Product.totalClicks = 0;
-var allProducts = [];
-
-Product.uniqueArray = [];
 
 
 function Product(name) {
@@ -22,35 +22,72 @@ function Product(name) {
   this.votes = 0;
   allProducts.push(this);
 }
+if (localStorage.getItem('data') === null) {
+  new Product('bag');
+  new Product('banana');
+  new Product('bathroom');
+  new Product('boots');
+  new Product('breakfast');
+  new Product('bubblegum');
+  new Product('chair');
+  new Product('cthulhu');
+  new Product('dog-duck');
+  new Product('dragon');
+  new Product('pen');
+  new Product('pet-sweep');
+  new Product('scissors');
+  new Product('shark');
+  new Product('sweep');
+  new Product('tauntaun');
+  new Product('unicorn');
+  new Product('usb');
+  new Product('water-can');
+  new Product('wine-glass');
+} else {
+  
+  var storageAllProducts = localStorage.getItem('data');
+  var parseAllProducts = JSON.parse(storageAllProducts);
 
+  for (var i = 0; i < parseAllProducts.length; i++) {
+    new Product(parseAllProducts[i].name, parseAllProducts[i].views, parseAllProducts[i].votes);
+    console.log(allProducts);
+  }
+}
+
+// making a random number to assign to the pictures so they show up randomly
 function makeRandom() {
   return Math.floor(Math.random() * allProducts.length);
 }
 
+// trying to set an array, so that the random pictures don't show up in the next iteration.
 function uniqueArrayGen(){
-  while(allProducts.uniqueArray.length < 6){
+  while(uniquePicsArray.length < 6){
     var random = makeRandom();
-    while(!allProducts.uniqueArray.includes(random)){
-      allProducts.uniqueArray.push(random);
+    while(!uniquePicsArray.includes(random)){
+      uniquePicsArray.push(random);
     }
   }
 }
 function displayPics() {
   uniqueArrayGen();
-  for (var i = 0; i < allProducts.uniqueArray.legnth; i++){
-    var temp = allProducts.uniqueArray.shift();
+  for (var i = 0; i < uniquePicsArray.legnth; i++){
+    var temp = uniquePicsArray.shift();
     console.log ('temp: ', temp);
-    allProducts.pics[i].src = allProducts[temp].path;
-    allProducts.pics[i].id = allProducts[temp].name;
-    allProducts[temp].views += 1;
+    Product.pics[i].src = allProducts[temp].path;
+    Product.pics[i].id = allProducts[temp].name;
+    Product[temp].views += 1;
   }
 }
 function handleClick(event) {
   var chosenImage = event.target.title;
   console.log('chosenImage: ', chosenImage);
-  if(Product.totalClicks === 25){
+  // storeData();
+  var allProductsStringified = JSON.stringify(allProducts);
+  localStorage.setItem('data', allProductsStringified);
+
+  if(totalClicks === 25){
     containerEl.removeEventListener('click', handleClick);
-    containerEl.setAttribute('hidden', true);
+    containerEl.remove();
     makeChart();
   }
 
@@ -59,9 +96,9 @@ function handleClick(event) {
       allProducts[i].votes++;
     }
   }
-  Product.totalClicks++;
+  totalClicks++;
   renderProducts();
-  // parentEl.innerHTML = '';
+  displayPics ();
 }
 
 function renderProducts (){
@@ -104,30 +141,6 @@ function renderProducts (){
   centerImageEl.title = allProducts[uniquePicsArray[2]].name;
 }
 
-
-new Product('bag');
-new Product('banana');
-new Product('bathroom');
-new Product('boots');
-new Product('breakfast');
-new Product('bubblegum');
-new Product('chair');
-new Product('cthulhu');
-new Product('dog-duck');
-new Product('dragon');
-new Product('pen');
-new Product('pet-sweep');
-new Product('scissors');
-new Product('shark');
-new Product('sweep');
-new Product('tauntaun');
-new Product('unicorn');
-new Product('usb');
-new Product('water-can');
-new Product('wine-glass');
-
-console.log(allProducts);
-
 var nameData = [];
 console.log('name: ', nameData);
 var voteData = [];
@@ -138,6 +151,7 @@ var getChartData = function () {
   for (var i = 0; i < allProducts.length; i++) {
     nameData.push(allProducts[i].name);
     voteData.push(allProducts[i].votes);
+    viewsData.push(allProducts[i].views);
   }
 };
 
@@ -152,20 +166,48 @@ var makeChart = function () {
         label: 'Votes',
         data: voteData,
         backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
+          'rgba(252, 23, 3, 0.2)',
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 206, 86, 0.2)',
           'rgba(75, 192, 192, 0.2)',
           'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(5, 110, 58, 0.2)',
+          'rgba( 214, 6, 127, 0.2)',
+          'rgba(61, 242, 121, 0.2)',
+          'rgba(179, 61, 242, 0.2)',
+          'rgba(252, 23, 3, 0.5)',
+          'rgba(54, 162, 235, 0.5)',
+          'rgba(255, 206, 86, 0.5)',
+          'rgba(75, 192, 192, 0.5)',
+          'rgba(153, 102, 255, 0.5)',
+          'rgba(255, 159, 64, 0.5)',
+          'rgba(5, 110, 58, 0.5)',
+          'rgba( 214, 6, 127, 0.5)',
+          'rgba(61, 242, 121, 0.5)',
+          'rgba(179, 61, 242, 0.5)',
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)',
+          'rgba(252, 23, 3, 1)',
           'rgba(54, 162, 235, 1)',
           'rgba(255, 206, 86, 1)',
           'rgba(75, 192, 192, 1)',
           'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
+          'rgba(255, 159, 64, 1)',
+          'rgba(5, 110, 58, 1)',
+          'rgba( 214, 6, 127, 1)',
+          'rgba(61, 242, 121, 1)',
+          'rgba(179, 61, 242, 1)',
+          'rgba(252, 23, 3, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(5, 110, 58, 1)',
+          'rgba( 214, 6, 127, 1)',
+          'rgba(61, 242, 121, 1)',
+          'rgba(179, 61, 242, 1)',
         ],
         borderWidth: 1
       }]
@@ -181,6 +223,5 @@ var makeChart = function () {
     }
   });
 };
-
 containerEl.addEventListener('click', handleClick);
 renderProducts();
